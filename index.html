@@ -67,20 +67,20 @@
 			else{
 				
 				if (curX < dollX){
-					curX = curX + 1;
+					curX = curX + 10;
 				}
 				else if (curX > dollX){
-					curX = curX - 1;
+					curX = curX - 10;
 				}
 				if (curY < dollY){
-					curY = curY + 1;
+					curY = curY + 10;
 				}
 				else if (curY > dollY){
-					curY = curY - 1;
+					curY = curY - 10;
 				}
 			}
 			if (foodAppear == false){
-				if (teleCount > 100){
+				if (teleCount > 10){
 					foodAppear = true;
 					teleCount = 0;
 				}
@@ -129,8 +129,8 @@
 		foodImg.src = 'siuyiu.png';
 		const telImg = new Image();
 		telImg.src = 'blackhole.png';
-		setInterval(redraw, 1);
-		setInterval(smooth, 1);
+		setInterval(redraw, 10);
+		setInterval(smooth, 10);
 
 		//Control buttons
 		upBtn.addEventListener('click', () => {
