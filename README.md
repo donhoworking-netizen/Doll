@@ -1,1 +1,1 @@
-Just open the move.html
+Just open the index.html
