@@ -50,12 +50,13 @@
 		var step = 50;
 
 		function redraw(){
+			smooth();
 			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			if (foodAppear == true){
 				ctx.drawImage(foodImg, foodX, foodY, 36, 50);
 			}
 			else{
-				ctx.drawImage(telImg, foodX - 32, foodY - 25, 100, 100);
+				ctx.drawImage(telImg, foodX - 32, foodY, 100, 50);
 			}
 			ctx.drawImage(dollImg, curX, curY, 100, 100);
 		}
@@ -67,20 +68,20 @@
 			else{
 				
 				if (curX < dollX){
-					curX = curX + 10;
+					curX = curX + step / 2;
 				}
 				else if (curX > dollX){
-					curX = curX - 10;
+					curX = curX - step / 2;
 				}
 				if (curY < dollY){
-					curY = curY + 10;
+					curY = curY + step / 2;
 				}
 				else if (curY > dollY){
-					curY = curY - 10;
+					curY = curY - step / 2;
 				}
 			}
 			if (foodAppear == false){
-				if (teleCount > 10){
+				if (teleCount > 5){
 					foodAppear = true;
 					teleCount = 0;
 				}
@@ -128,9 +129,8 @@
 		const foodImg = new Image();
 		foodImg.src = 'siuyiu.png';
 		const telImg = new Image();
-		telImg.src = 'blackhole.png';
-		setInterval(redraw, 10);
-		setInterval(smooth, 10);
+		telImg.src = 'spark.png';
+		setInterval(redraw, 30);
 
 		//Control buttons
 		upBtn.addEventListener('click', () => {
