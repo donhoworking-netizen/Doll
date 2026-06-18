@@ -48,6 +48,7 @@
 		var foodAppear = true;
 		var teleCount = 0;
 		var step = 50;
+		var LR = true;
 
 		function redraw(){
 			smooth();
@@ -58,7 +59,12 @@
 			else{
 				ctx.drawImage(telImg, foodX - 32, foodY, 100, 50);
 			}
-			ctx.drawImage(dollImg, curX, curY, 100, 100);
+			if (LR == true){
+				ctx.drawImage(dollImg, curX, curY, 100, 100);
+			}
+			else{
+				ctx.drawImage(dollRImg, curX, curY, 100, 100);
+			}
 		}
 
 		function smooth(){
@@ -68,20 +74,20 @@
 			else{
 				
 				if (curX < dollX){
-					curX = curX + step / 2;
+					curX = curX + step / 5;
 				}
 				else if (curX > dollX){
-					curX = curX - step / 2;
+					curX = curX - step / 5;
 				}
 				if (curY < dollY){
-					curY = curY + step / 2;
+					curY = curY + step / 5;
 				}
 				else if (curY > dollY){
-					curY = curY - step / 2;
+					curY = curY - step / 5;
 				}
 			}
 			if (foodAppear == false){
-				if (teleCount > 5){
+				if (teleCount > 8){
 					foodAppear = true;
 					teleCount = 0;
 				}
@@ -126,6 +132,8 @@
 		const ctx = canvas.getContext('2d');
 		const dollImg = new Image();
 		dollImg.src = 'fayfay.png';
+		const dollRImg = new Image();
+		dollRImg.src = 'fayfayR.png';
 		const foodImg = new Image();
 		foodImg.src = 'siuyiu.png';
 		const telImg = new Image();
@@ -142,12 +150,12 @@
 		});
 
 		leftBtn.addEventListener('click', () => {
-			dollImg.src = 'fayfay.png';
+			LR = true;
 			dollX = dollX - step;
 		});
 
 		rightBtn.addEventListener('click', () => {
-			dollImg.src = 'fayfayR.png';
+			LR = false;
 			dollX = dollX + step;
 		});
 	</script>
