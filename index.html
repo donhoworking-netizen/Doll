@@ -10,9 +10,10 @@
 				<button id="upBtn">▲</button>
   				<div>
  					<button id="leftBtn">◀</button>
-					<button id="downBtn">▼</button>
+					<button id="autoBtn">Auto</button>
 					<button id="rightBtn">▶</button>
 				</div>
+				<button id="downBtn">▼</button>
 			</div>
 		</td>
 	</table>
@@ -127,6 +128,50 @@
 			eat(10000);
 		}
 
+		function moveUp(){
+			dollY = dollY - step;
+		}
+
+		function moveDown(){
+			dollY = dollY + step;
+		}
+
+		function moveLeft(){
+			LR = true;
+			dollX = dollX - step;
+		}
+
+		function moveRight(){
+			LR = false;
+			dollX = dollX + step;
+		}
+
+		function autopilot(){
+			var dx = (foodX + 18) - (dollX + 50);
+			var dy = (foodY + 25) - (dollY + 50);
+			if (Math.abs(dx) > Math.abs(dy)){
+				if (dx > 0){
+					moveRight();
+				}
+				else{
+					moveLeft();
+				}
+			}
+			else{
+				if (dy > 0){
+					moveDown();
+				}
+				else{
+					moveUp();
+				}
+			}
+		}
+
+		function clearAllTrackedIntervals(){
+			activeIntervals.forEach(id => clearInterval(id));
+			activeIntervals.length = 0;
+		}
+
 		//Game start from here!
 		const canvas = document.getElementById('myCanvas');
 		const ctx = canvas.getContext('2d');
@@ -139,24 +184,31 @@
 		const telImg = new Image();
 		telImg.src = 'spark.png';
 		setInterval(redraw, 30);
+		const activeIntervals = [];
 
 		//Control buttons
 		upBtn.addEventListener('click', () => {
-			dollY = dollY - step;
+			clearAllTrackedIntervals()
+			moveUp();
 		});
 
 		downBtn.addEventListener('click', () => {
-			dollY = dollY + step;
+			clearAllTrackedIntervals()
+			moveDown();
 		});
 
 		leftBtn.addEventListener('click', () => {
-			LR = true;
-			dollX = dollX - step;
+			clearAllTrackedIntervals()
+			moveLeft();
 		});
 
 		rightBtn.addEventListener('click', () => {
-			LR = false;
-			dollX = dollX + step;
+			clearAllTrackedIntervals()
+			moveRight();
+		});
+
+		autoBtn.addEventListener('click', () => {
+			activeIntervals.push(setInterval(autopilot, 600));
 		});
 	</script>
 </body>
